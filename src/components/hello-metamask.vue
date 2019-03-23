@@ -3,9 +3,9 @@
 </template>
 
 <script>
-  export default {
-    name: 'hello-metamask'
-  }
+export default {
+  name: 'hello-metamask'
+}
 </script>
 
 <style scoped>
