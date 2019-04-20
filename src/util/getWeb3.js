@@ -6,7 +6,7 @@ let getWeb3 = new Promise(function (resolve, reject) {
   if (typeof web3js !== 'undefined') {
     web3Provider = web3js.currentProvider
   } else {
-    web3Provider = new Web3.providers.HttpProvider('http://127.0.0.1:7545')
+    web3Provider = new Web3.providers.HttpProvider('http://127.0.0.1:8545')
   }
   var web3 = new Web3(web3Provider)
   resolve({
@@ -38,6 +38,19 @@ let getWeb3 = new Promise(function (resolve, reject) {
           coinbase = result.web3().utils.toChecksumAddress(coinbase)
           console.log('retrieve coinbase: ' + coinbase)
           result = Object.assign({}, result, {coinbase})
+          resolve(result)
+        }
+      })
+    })
+  })
+  .then(result => {
+    return new Promise(function (resolve, reject) {
+      result.web3().eth.getBalance(result.coinbase, (err, balance) => {
+        if (err) {
+          reject(new Error('Unable to retrieve balance'))
+        } else {
+          console.log('retrieve balance: ' + balance)
+          result = Object.assign({}, result, {balance})
           resolve(result)
         }
       })

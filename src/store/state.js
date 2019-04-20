@@ -7,6 +7,15 @@ let state = {
     balance: null,
     error: null
   },
-  contractInstance: null
+  contractInstance: null,
+  // authUser: {
+  //   loginState: false,
+  //   registerState: false,
+  //   account: {
+  //     name: '',
+  //     avatar: '',
+  //     balance: 0
+  //   }
+  // },
 }
 export default state

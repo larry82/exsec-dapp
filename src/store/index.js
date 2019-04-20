@@ -2,6 +2,8 @@ import Vue from 'vue'
 import Vuex from 'vuex'
 import state from './state'
 import getWeb3 from '../util/getWeb3'
+import pollWeb3 from '../util/pollWeb3'
+import getContract from '../util/getContract'
 
 Vue.use(Vuex)
 
@@ -19,7 +21,26 @@ export const store = new Vuex.Store({
       web3Copy.isInjected = result.injectedWeb3
       web3Copy.web3Instance = result.web3
       state.web3 = web3Copy
+      pollWeb3()
+    },
+    pollWeb3Instance (state, payload) {
+      console.log('pollWeb3Instance mutation being executed', payload)
+      state.web3.coinbase = payload.coinbase
+      state.web3.balance = parseInt(payload.balance, 10)
+    },
+    registerContractInstance (state, payload) {
+      console.log('Casino contract instance: ', payload)
+      state.contractInstance = () => payload
     }
+    // setLoginState (state, payload) {
+    //   state.authUser.loginState = payload
+    // },
+    // setRegisterState (state, payload) {
+    //   state.authUser.registerState = payload
+    // },
+    // setUserAccount (state, payload) {
+    //   state.authUser.account = payload
+    // }
   },
   actions: {
     registerWeb3 ({commit}) {
@@ -30,6 +51,50 @@ export const store = new Vuex.Store({
       }).catch(e => {
         console.log('error in action registerWeb3', e)
       })
+    },
+    pollWeb3 ({commit}, payload) {
+      console.log('pollWeb3 action being executed')
+      commit('pollWeb3Instance', payload)
+    },
+    getContractInstance ({commit}) {
+      getContract.then(result => {
+        commit('registerContractInstance', result)
+      }).catch(e => console.log(e))
     }
+    // checkLoginState ({commit, state}) {
+    //   try {
+    //     state.contractInstance().methods.isMemberOf().call({from: state.web3.coinbase})
+    //       .then(result => {
+    //         return new Promise((resolve, reject) => {
+    //           resolve(result)
+    //         })
+    //       })
+    //       .then(result => {
+    //         if (result === true) {
+    //           state.contractInstance().methods.getMemberInfo().call({from: state.web3.coinbase})
+    //             .then(result => {
+    //               commit('setLoginState', true)
+    //               commit('setRegisterState', true)
+    //               commit('setUserAccount', result)
+    //             })
+    //             .catch(err => {
+    //               console.log(err)
+    //               commit('setLoginState', false)
+    //               commit('setRegisterState', false)
+    //               commit('setUserAccount', {name: '', avatar: '', balance: 0})
+    //             })
+    //         } else {
+    //           commit('setLoginState', false)
+    //           commit('setRegisterState', false)
+    //           commit('setUserAccount', {name: '', avatar: '', balance: 0})
+    //         }
+    //       })
+    //       .catch(e => {
+    //         console.log(e)
+    //       })
+    //   } catch (e) {
+    //     console.log(e)
+    //   }
+    // }
   }
 })
