@@ -4,6 +4,7 @@
     <div class="col-md-8 offset-md-2 my-3" v-for="(market) in market_addresses">
       <b-card title="兩岸關係" sub-title="預測">
         <b-card-text>
+          {{ market }}
           Some quick example text to build on the <em>card title</em> and make up the bulk of the card's
           content.
         </b-card-text>
@@ -30,7 +31,7 @@ export default {
     this.$store.dispatch('getContractInstance')
 
     this.$store.state.contractInstance().methods.getDeployedMarkets()
-      .call({from:this.$store.state.web3.coinbase})
+      .call({from: this.$store.state.web3.coinbase})
       .then(res => {
         console.log('account info: ' + res);
       })
@@ -41,14 +42,13 @@ export default {
   methods: {
     getAddress (evt) {
       this.$store.state.contractInstance().methods.getDeployedMarkets()
-      .call({from:this.$store.state.web3.coinbase})
-      .then(res => {
-        console.log('account info: ' + res);
-      })
-      .catch(error => {
-        console.log(error);
-      })
-
+        .call({from:this.$store.state.web3.coinbase})
+        .then(res => {
+          console.log('account info: ' + res);
+        })
+        .catch(error => {
+          console.log(error);
+        })
     }
   }
 

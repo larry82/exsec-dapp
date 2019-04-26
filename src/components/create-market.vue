@@ -18,11 +18,10 @@
         ></b-form-input>
       </b-form-group>
 
-      <b-form-group 
-        id="input-group-3"
-        label="預測類型:"
-        label-for="input-3"
-        description="目前僅支援二元趨勢(正/負向)及避險預測"
+      <b-form-group id="input-group-3"
+                    label="預測類型:"
+                    label-for="input-3"
+                    description="目前僅支援二元趨勢(正/負向)及避險預測"
       >
         <b-form-select
           id="input-3"
@@ -57,56 +56,56 @@
     </b-card>
   </div>
   </div>
-</template>  
+</template>
 
 <script>
-  export default {
-    name: 'exsec',
-    data () {
-      return {
-        form: {
-          description: '',
-          endTime: '',
-          marketType: null,
-          checked: []
-        },
-        marketTypes: [{ text: '請選擇', value: null }, '二元趨勢', '避險'],
-        show: true
-      }
-    },
-    mounted () {
-      console.log('dispatching getContractInstance')
-      this.$store.dispatch('getContractInstance')
-    },
-    methods: {
-      createMarket (evt) {
-        evt.preventDefault()
-        this.$store.state.contractInstance().methods.createMarket('2','2','2','2')
+export default {
+  name: 'exsec',
+  data () {
+    return {
+      form: {
+        description: '',
+        endTime: '',
+        marketType: null,
+        checked: []
+      },
+      marketTypes: [{ text: '請選擇', value: null }, '二元趨勢', '避險'],
+      show: true
+    }
+  },
+  mounted () {
+    console.log('dispatching getContractInstance')
+    this.$store.dispatch('getContractInstance')
+  },
+  methods: {
+    createMarket (evt) {
+      evt.preventDefault()
+      this.$store.state.contractInstance().methods.createMarket('2','2','2','2')
         .send({from:this.$store.state.web3.coinbase, gas: 3000000})
         .on('receipt', receipt => {
-            this.$message('創建成功');
+          this.$message('創建成功');
         })
         .on('error', error => {
-            this.$message('創建失败');
+          this.$message('創建失败', error);
         })
-      },
-      onSubmit(evt) {
-        evt.preventDefault()
-        alert(JSON.stringify(this.form))
-      },
-      onReset(evt) {
-        evt.preventDefault()
-        // Reset our form values
-        this.form.description = ''
-        this.form.endTime = ''
-        this.form.marketType = null
-        this.form.checked = []
-        // Trick to reset/clear native browser form validation state
-        this.show = false
-        this.$nextTick(() => {
-          this.show = true
-        })
-      }
+    },
+    onSubmit (evt) {
+      evt.preventDefault()
+      alert(JSON.stringify(this.form))
+    },
+    onReset(evt) {
+      evt.preventDefault()
+      // Reset our form values
+      this.form.description = ''
+      this.form.endTime = ''
+      this.form.marketType = null
+      this.form.checked = []
+      // Trick to reset/clear native browser form validation state
+      this.show = false
+      this.$nextTick(() => {
+        this.show = true
+      })
     }
   }
+}
 </script>

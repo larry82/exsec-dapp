@@ -6,7 +6,7 @@
     <p>Balance: {{ web3.balance }}</p>
   </div> -->
   <div class="container nav">
-    
+
   </div>
 </template>
 
