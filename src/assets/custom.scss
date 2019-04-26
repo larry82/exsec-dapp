@@ -1,0 +1,10 @@
+// custom.scss
+
+// Define your variable overrides here
+$primary: #9124a2 !default;
+$input-placeholder-color: #dee2e6;
+
+
+// Include Bootstrap and BootstrapVue SCSS files
+@import '~bootstrap/scss/bootstrap.scss';
+@import '~bootstrap-vue/src/index.scss';

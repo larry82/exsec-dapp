@@ -1,9 +1,15 @@
 <template>
-  <hello-metamask/>
+	<div class="container">
+	  <hello-metamask/>
+		<homepage/>
+	  <create-market/>
+	</div>
 </template>
 
 <script>
 import HelloMetamask from '@/components/hello-metamask'
+import homepage from '@/components/homepage'
+import createMarket from '@/components/create-market'
 export default {
   name: 'exsec-dapp',
   beforeCreate () {
@@ -11,7 +17,9 @@ export default {
     this.$store.dispatch('registerWeb3')
   },
   components: {
-    'hello-metamask': HelloMetamask
+    'hello-metamask': HelloMetamask,
+    'homepage': homepage,
+    'create-market': createMarket
   }
 }
 </script>

@@ -5,7 +5,9 @@
     <p>Account: {{ web3.coinbase }}</p>
     <p>Balance: {{ web3.balance }}</p>
   </div> -->
-  <div> 123</div>
+  <div class="container nav">
+    
+  </div>
 </template>
 
 <script>
@@ -20,5 +22,7 @@ export default {
 </script>
 
 <style scoped>
-
+  .nav{
+    height: 60px;
+  }
 </style>
