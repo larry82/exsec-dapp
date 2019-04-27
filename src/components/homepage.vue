@@ -23,33 +23,14 @@ export default {
   name: 'homepage',
   data () {
     return {
-      market_addresses: ['0x893DF376a56eb14554b1dCC7233288F3Cadf258c','0x893DF376a56eb14554b1dCC7233288F3Cadf258c','0x893DF376a56eb14554b1dCC7233288F3Cadf258c']
+      market_addresses: []
     }
   },
   mounted () {
-    console.log('dispatching getContractInstance')
-    this.$store.dispatch('getContractInstance')
 
-    this.$store.state.contractInstance().methods.getDeployedMarkets()
-      .call({from: this.$store.state.web3.coinbase})
-      .then(res => {
-        console.log('account info: ' + res);
-      })
-      .catch(error => {
-        console.log(error);
-      })
   },
   methods: {
-    getAddress (evt) {
-      this.$store.state.contractInstance().methods.getDeployedMarkets()
-        .call({from:this.$store.state.web3.coinbase})
-        .then(res => {
-          console.log('account info: ' + res);
-        })
-        .catch(error => {
-          console.log(error);
-        })
-    }
+
   }
 
 }

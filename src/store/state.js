@@ -8,14 +8,6 @@ let state = {
     error: null
   },
   contractInstance: null,
-  // authUser: {
-  //   loginState: false,
-  //   registerState: false,
-  //   account: {
-  //     name: '',
-  //     avatar: '',
-  //     balance: 0
-  //   }
-  // },
+  marketContracts: null
 }
 export default state

@@ -4,6 +4,9 @@ import state from './state'
 import getWeb3 from '../util/getWeb3'
 import pollWeb3 from '../util/pollWeb3'
 import getContract from '../util/getContract'
+import Web3 from 'web3'
+import {ABI, address} from '../util/constants/exsecContract'
+import {marketABI} from '../util/constants/marketContract'
 
 Vue.use(Vuex)
 
@@ -28,8 +31,17 @@ export const store = new Vuex.Store({
       state.web3.coinbase = payload.coinbase
       state.web3.balance = parseInt(payload.balance, 10)
     },
+    registerMarketInstances (state, payload) {
+      let web3 = state.web3
+
+      payload.forEach(function(address, index, addresses) {
+        addresses[index] = new web3.eth.Contract(marketABI, address)
+      })
+
+      state.marketContracts = payload
+    },
     registerContractInstance (state, payload) {
-      console.log('Casino contract instance: ', payload)
+      console.log('Dapp contract instance: ', payload)
       state.contractInstance = () => payload
     }
     // setLoginState (state, payload) {
@@ -60,6 +72,17 @@ export const store = new Vuex.Store({
       getContract.then(result => {
         commit('registerContractInstance', result)
       }).catch(e => console.log(e))
+    },
+    getMarketAddresses ({commit}) {
+      this.$store.state.contractInstance().methods.getDeployedMarkets()
+        .call({from: this.$store.state.web3.coinbase})
+        .then(res => {
+          console.log('Market Addresses: ' + res)
+          commit('registerMarketInstances', res)
+        })
+        .catch(error => {
+          console.log(error)
+        })
     }
     // checkLoginState ({commit, state}) {
     //   try {

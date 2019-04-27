@@ -1,22 +1,22 @@
-const address = '0x4d7622bb8d725cecdd7f578fb5d12a1e8cc650d4'
+const address = '0x1f582fae4476fab3190b3f8eef2110de7b7b7402'
 const ABI = [
   {
     'constant': false,
     'inputs': [
       {
-        'name': '_description',
+        'name': 'name',
         'type': 'string'
       },
       {
-        'name': '_endTime',
+        'name': 'description',
+        'type': 'string'
+      },
+      {
+        'name': 'openingTime',
         'type': 'uint256'
       },
       {
-        'name': '_cap',
-        'type': 'uint256'
-      },
-      {
-        'name': '_minimum',
+        'name': 'closingTime',
         'type': 'uint256'
       }
     ],
@@ -27,10 +27,44 @@ const ABI = [
     'type': 'function'
   },
   {
+    'constant': false,
     'inputs': [],
+    'name': 'renounceOwnership',
+    'outputs': [],
     'payable': false,
     'stateMutability': 'nonpayable',
-    'type': 'constructor'
+    'type': 'function'
+  },
+  {
+    'constant': false,
+    'inputs': [
+      {
+        'name': 'newOwner',
+        'type': 'address'
+      }
+    ],
+    'name': 'transferOwnership',
+    'outputs': [],
+    'payable': false,
+    'stateMutability': 'nonpayable',
+    'type': 'function'
+  },
+  {
+    'anonymous': false,
+    'inputs': [
+      {
+        'indexed': true,
+        'name': 'previousOwner',
+        'type': 'address'
+      },
+      {
+        'indexed': true,
+        'name': 'newOwner',
+        'type': 'address'
+      }
+    ],
+    'name': 'OwnershipTransferred',
+    'type': 'event'
   },
   {
     'constant': true,
@@ -68,7 +102,21 @@ const ABI = [
   {
     'constant': true,
     'inputs': [],
-    'name': 'superAdmin',
+    'name': 'isOwner',
+    'outputs': [
+      {
+        'name': '',
+        'type': 'bool'
+      }
+    ],
+    'payable': false,
+    'stateMutability': 'view',
+    'type': 'function'
+  },
+  {
+    'constant': true,
+    'inputs': [],
+    'name': 'owner',
     'outputs': [
       {
         'name': '',

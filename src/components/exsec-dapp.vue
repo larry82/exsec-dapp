@@ -1,9 +1,9 @@
 <template>
-	<div class="container">
-	  <hello-metamask/>
-		<homepage/>
-	  <create-market/>
-	</div>
+  <div class="container">
+    <hello-metamask/>
+    <homepage/>
+    <create-market/>
+  </div>
 </template>
 
 <script>

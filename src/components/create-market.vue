@@ -80,20 +80,20 @@ export default {
   methods: {
     createMarket (evt) {
       evt.preventDefault()
-      this.$store.state.contractInstance().methods.createMarket('2','2','2','2')
+      this.$store.state.contractInstance().methods.createMarket('2','2',1,3)
         .send({from:this.$store.state.web3.coinbase, gas: 3000000})
         .on('receipt', receipt => {
-          this.$message('創建成功');
+          alert('創建成功')
         })
         .on('error', error => {
-          this.$message('創建失败', error);
+          alert('創建失敗' + error)
         })
     },
     onSubmit (evt) {
       evt.preventDefault()
       alert(JSON.stringify(this.form))
     },
-    onReset(evt) {
+    onReset (evt) {
       evt.preventDefault()
       // Reset our form values
       this.form.description = ''
